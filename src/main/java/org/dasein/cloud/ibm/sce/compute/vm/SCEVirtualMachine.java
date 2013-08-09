@@ -1071,13 +1071,9 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
         for (String invalidString : invalidStrings) {
             invalidSubstrings.addAll(generateThreeCharSubstrings(invalidString));
         }
-        int rnd = random.nextInt();
-        int length = 16;
+        int rnd;
+        int length = 8;
 
-        if( rnd < 0 ) {
-            rnd = -rnd;
-        }
-        length = length + (rnd%8);
         while( password.length() < 1 ) {
             char c;
 
