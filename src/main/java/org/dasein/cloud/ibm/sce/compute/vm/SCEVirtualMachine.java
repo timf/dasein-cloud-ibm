@@ -1060,7 +1060,7 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
     static public String uppercaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static public String lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
     static public String numbers = "0123456789";
-    static public String symbols = "!$#@%^&*()-_=+[]{},.<>?/;:";
+    static public String symbols = "!$#%";
     static public String allChars = uppercaseAlphabet + lowercaseAlphabet + numbers + symbols;
     static private final Random random = new Random();
 
