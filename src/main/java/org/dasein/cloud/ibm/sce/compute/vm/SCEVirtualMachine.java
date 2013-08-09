@@ -361,7 +361,7 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
 				logger.debug("Adding UserName parameter: " + withLaunchOptions.getBootstrapUser());
 				parameters.add(new BasicNameValuePair("UserName", withLaunchOptions.getBootstrapUser()));
 			}
-            password = getRandomPassword(withLaunchOptions.getBootstrapUser());
+            password = getRandomWindowsPassword(withLaunchOptions.getBootstrapUser());
 			parameters.add(new BasicNameValuePair("Password", password));
 		}
 
@@ -1061,10 +1061,10 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
     static public String lowercaseAlphabet = "abcdefghijklmnopqrstuvwxyz";
     static public String numbers = "0123456789";
     static public String symbols = "!$#@%^&*()-_=+[]{},.<>?/;:";
-    static public String allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!$#@%^&*()-_=+[]{},.<>?/;:";
+    static public String allChars = uppercaseAlphabet + lowercaseAlphabet + numbers + symbols;
     static private final Random random = new Random();
 
-    public String getRandomPassword(String username) {
+    public static String getRandomWindowsPassword(String username) {
         StringBuilder password = new StringBuilder();
         ArrayList<String> invalidSubstrings = new ArrayList<String>();
         final String[] invalidStrings = {username, "admin", "Administrator", "idcadmin"};
@@ -1148,10 +1148,9 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
         return password.toString();
     }
 
-    private ArrayList<String> generateThreeCharSubstrings(String input) {
+    protected static ArrayList<String> generateThreeCharSubstrings(String input) {
         ArrayList<String> substrings = new ArrayList<String>();
-        Integer length = input.length();
-        for (Integer i=0; (i+3)<=length; i++) {
+        for (int i=0; (i+3)<=input.length(); i++) {
             substrings.add(input.substring(i, i+3));
         }
         return substrings;
