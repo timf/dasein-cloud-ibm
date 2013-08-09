@@ -408,7 +408,15 @@ public class SCEVirtualMachine implements VirtualMachineSupport {
 			}
 		}
 		SCEMethod method = new SCEMethod(provider);
-		String response = method.post("instances", parameters);
+        String response;
+        try {
+    		response = method.post("instances", parameters);
+        } catch (CloudException e) {
+            if (e.getMessage().contains("Passwords cannot contain")) {
+                throw new CloudException(e.getMessage() + " Attempted to use: " + password);
+            }
+            throw e;
+        }
 
 		if( response == null ) {
 			throw new CloudException("Cloud accepted the post, but no body was in the response");
